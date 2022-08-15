@@ -6,6 +6,7 @@ class Scores {
     this.username = data.username;
     this.quiz_category = data.quiz_category;
     this.score = data.score;
+    //might add a difficulty field to add more filtering
   }
 
   static get all() {
@@ -17,7 +18,7 @@ class Scores {
         const scores = scoresData.rows.map((score) => new Scores(score));
         resolve(scores);
       } catch (err) {
-        reject("Error retrieving scores" + err);
+        reject("Error retrieving scores: " + err.message);
       }
     });
   }
@@ -33,7 +34,7 @@ class Scores {
         let userScores = userData.rows.map((score) => new Scores(score));
         resolve(userScores);
       } catch (err) {
-        reject("Could not load user's scores" + err);
+        reject("Could not load user's scores: " + err.message);
       }
     });
   }
@@ -43,7 +44,7 @@ class Scores {
     return new Promise(async (resolve, reject) => {
       try {
         let categoryData = await db.query(
-          `SELECT username, quiz_category, score FROM scores WHERE quiz_category = $1;`,
+          `SELECT username, quiz_category, score FROM scores WHERE quiz_category = $1 ORDER BY score DESC;`,
           [category]
         );
         let categoryScores = categoryData.rows.map(
@@ -51,7 +52,7 @@ class Scores {
         );
         resolve(categoryScores);
       } catch (err) {
-        reject("Could not load scores for this quiz category" + err);
+        reject("Could not load scores for this quiz category: " + err.message);
       }
     });
   }
@@ -67,8 +68,23 @@ class Scores {
         resolve(newScore);
       } catch (err) {
         reject(
-          "Error creating a new score for this user and quiz category" + err
+          "Error creating a new score for this user and quiz category: " +
+            err.message
         );
+      }
+    });
+  }
+
+  destroy() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await db.query(
+          `DELETE FROM scores WHERE id = $1 RETURNING id;`,
+          [this.id]
+        );
+        resolve(`This score (id: ${result.id}) has been deleted`);
+      } catch (err) {
+        reject("Error deleting score: " + err.message);
       }
     });
   }
