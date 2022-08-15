@@ -51,7 +51,7 @@ const QuizSettings = ({display, handleClick1}) => {
 
     return (
         <>
-            <form style={{display: display}} className="formStyling" onSubmit={submitForm}>
+            <form style={{display: display}} className="formStyling">
                 <h2>Set Up A New Quiz!</h2>
                 <div className="input-container">
                     <label className='form-label' htmlFor='room-id'>Room id:</label>
@@ -117,9 +117,13 @@ const QuizSettings = ({display, handleClick1}) => {
                         <option value="boolean">True/False</option>
                     </select>
                 </div>
+
+                <div style={{display: "flex", justifyContent: "space-between", minWidth: "200px"}}>
+                    <Btn text="Go Back" handleClick={handleClick1} />
+                    <button type="submit" onClick={submitForm}>Submit</button>
+                </div>
                 
-                <button type="submit">Submit</button>
-                <Btn text="Go Back" handleClick={handleClick1} />
+                
 
 
             </form>
