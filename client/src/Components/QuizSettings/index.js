@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
+import Btn from '../Btn';
 import './style.css';
 
-const QuizSettings = () => {
+const QuizSettings = ({display, handleClick1}) => {
 
     const roomId = useRef();
     const category = useRef();
@@ -29,20 +30,17 @@ const QuizSettings = () => {
             console.log(formData);
 
             const postFormData = async () => {
-                const response = await axios.post('http://localhost:5002/rooms/create');
-                console.log(response);
+                try {
+                    const response = await axios.post('http://localhost:5002/rooms/create',
+                    {...formData});
+                    console.log(response);
+                } catch (e) {
+                    alert(`${e.response.data}`);
+                }
+                
             }
 
             postFormData();
-
-
-            const getQuizData = async () => {
-                let url = `https://opentdb.com/api.php?amount=${numberOfQuestions.current.value}&category=${category.current.value}&difficulty=${difficulty.current.value}&type=${questionType.current.value}`;
-                const response = await axios.get(url);
-                console.log(response);
-            }
-
-            getQuizData();
 
         }
         
@@ -53,7 +51,7 @@ const QuizSettings = () => {
 
     return (
         <>
-            <form className="formStyling" onSubmit={submitForm}>
+            <form style={{display: display}} className="formStyling" onSubmit={submitForm}>
                 <h2>Set Up A New Quiz!</h2>
                 <div className="input-container">
                     <label className='form-label' htmlFor='room-id'>Room id:</label>
@@ -121,6 +119,7 @@ const QuizSettings = () => {
                 </div>
                 
                 <button type="submit">Submit</button>
+                <Btn text="Go Back" handleClick={handleClick1} />
 
 
             </form>
