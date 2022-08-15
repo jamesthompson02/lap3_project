@@ -1,11 +1,14 @@
+
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './Components/Footer';
 import NavBar from './Components/Routes';
 import * as Pages from './Pages';
 
-function App() {
+
+const App=()=> {
   return (
+
     <div className="App">
       <NavBar />
       <Footer />
@@ -17,6 +20,7 @@ function App() {
       </Routes>
     </div>
   );
+
 }
 
 export default App;
