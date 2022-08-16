@@ -4,11 +4,12 @@ const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000", //make this the netlify link for the react app
+    origin: "http://localhost", //make this the netlify link for the react app
     methods: ["GET", "POST"],
   },
 });
 const axios = require("axios");
+const { Console } = require("console");
 
 const roomList = [];
 const activeGames = [];
@@ -52,6 +53,11 @@ io.on("connection", (socket) => {
       socket.emit("invalid-room");
       return;
     }
+    if(!currentRoom.open){
+      socket.emit("room-closed");
+      return;
+    }
+    
     currentRoom.users.push(username);
     currentRoom.ids.push(socket.id);
     if (currentRoom.users.length === 1) {
@@ -96,7 +102,7 @@ io.on("connection", (socket) => {
     );
     //next question
     if (currentRoom.ready === currentRoom.users.length) {
-      if (currentRoom.questionIndex < currentRoom.questions.length) {
+      if (currentRoom.questionIndex < currentRoom.questions.length-1) {
         currentRoom.questionIndex += 1;
         let nextQuestion = currentRoom.questions[currentRoom.questionIndex];
         currentRoom.ready = 0;
@@ -145,23 +151,8 @@ app.get("/rooms/active", (req, res) => {
 });
 
 app.get("/rooms", (req, res) => {
-  const rooms = roomList.map((room) => room.name);
+  const rooms = roomList.filter(room => room.open).map(room => room.name);
   res.status(200).send(rooms);
-});
-
-app.post("/rooms/join", (req, res) => {
-  const currentRoom = roomList.filter(
-    (room) => room.name === req.body.roomid
-  )[0];
-  if (!currentRoom) {
-    res.status(400).send("couldn't find that room");
-    return;
-  } else if (!currentRoom.open) {
-    res.status(409).send("Game already started");
-  }
-  currentRoom.users.push(req.body.username);
-
-  res.status(204).send("Successfully joined room");
 });
 
 module.exports = server;
