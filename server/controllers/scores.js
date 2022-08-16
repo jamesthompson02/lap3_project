@@ -10,6 +10,7 @@ async function findScoresByUsername(req, res) {
 }
 
 async function findScoresByQuizCategory(req, res) {
+  //leaderboard
   try {
     const scores = await Scores.findScoresByQuizCategory(req.params.category); // most categories have spaces in them will need to add a method to help with this
     res.status(200).json(scores);

@@ -75,6 +75,21 @@ describe("Scores", () => {
     });
   });
 
+  describe("findScoreById", () => {
+    test("it resolves with score on successful db query", async () => {
+      let scoreData = {
+        id: 1,
+        username: "Test User",
+        quiz_category: "Japanese Manga & Anime",
+        score: 8,
+      };
+
+      jest.spyOn(db, "query").mockResolvedValueOnce({ rows: [scoreData] });
+      const result = await Scores.findScoreById(1);
+      expect(result).toBeInstanceOf(Scores);
+    });
+  });
+
   describe("createScore", () => {
     test("it resolves with score on successful db query", async () => {
       let scoreData = {
