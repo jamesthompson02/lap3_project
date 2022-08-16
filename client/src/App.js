@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './Components/Footer';
-import NavBar from './Components/Routes';
+import RoutesBar from './Components/RoutesBar';
 import * as Pages from './Pages';
 
 const App = () => {
