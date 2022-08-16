@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Btn from '../Btn';
 import './style.css';
@@ -10,6 +11,8 @@ const QuizSettings = ({display, handleClick1}) => {
     const numberOfQuestions = useRef();
     const difficulty = useRef();
     const questionType = useRef();
+
+    const navigator1 = useNavigate();
 
     const submitForm = (e) => {
         e.preventDefault();
@@ -26,14 +29,19 @@ const QuizSettings = ({display, handleClick1}) => {
 
         if (!roomId.current.value) {
             alert("Please ensure a room id is created");
-        } else {
-            console.log(formData);
+        } else if(roomId.current.value.split(' ').length > 1) {
+            alert("Please ensure the room id is only one word.")
+
+        }else {
 
             const postFormData = async () => {
                 try {
                     const response = await axios.post('http://localhost:5002/rooms/create',
                     {...formData});
-                    console.log(response);
+                    setTimeout(() => {
+                        navigator1(`../rooms/${roomId.current.value}`, { replace: true});
+                    }, 750);
+                    
                 } catch (e) {
                     alert(`${e.response.data}`);
                 }
@@ -51,7 +59,7 @@ const QuizSettings = ({display, handleClick1}) => {
 
     return (
         <>
-            <form style={{display: display}} className="formStyling" onSubmit={submitForm}>
+            <form style={{display: display}} className="formStyling">
                 <h2>Set Up A New Quiz!</h2>
                 <div className="input-container">
                     <label className='form-label' htmlFor='room-id'>Room id:</label>
@@ -117,9 +125,13 @@ const QuizSettings = ({display, handleClick1}) => {
                         <option value="boolean">True/False</option>
                     </select>
                 </div>
+
+                <div style={{display: "flex", justifyContent: "space-between", minWidth: "200px"}}>
+                    <Btn text="Go Back" handleClick={handleClick1} />
+                    <button type="submit" onClick={submitForm}>Submit</button>
+                </div>
                 
-                <button type="submit">Submit</button>
-                <Btn text="Go Back" handleClick={handleClick1} />
+                
 
 
             </form>
