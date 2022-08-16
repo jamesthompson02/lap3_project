@@ -9,7 +9,11 @@ const io = require("socket.io")(server, {
   },
 });
 const axios = require("axios");
-const { Console } = require("console");
+
+const leaderboardRoutes = require("./routes/scoresRoutes");
+const scoresController = require("./controllers/scores");
+
+
 
 const roomList = [];
 const activeGames = [];
@@ -159,5 +163,28 @@ app.get("/rooms", (req, res) => {
   const rooms = roomList.filter(room => room.open).map(room => room.name);
   res.status(200).send(rooms);
 });
+
+
+app.post("/rooms/join", (req, res) => {
+  const currentRoom = roomList.filter(
+    (room) => room.name === req.body.roomid
+  )[0];
+  if (!currentRoom) {
+    res.status(400).send("couldn't find that room");
+    return;
+  } else if (!currentRoom.open) {
+    res.status(409).send("Game already started");
+  }
+  currentRoom.users.push(req.body.username);
+
+  res.status(204).send("Successfully joined room");
+});
+
+app.use("/leaderboard", leaderboardRoutes);
+
+app.post("/create", scoresController.createScore);
+
+app.delete("/delete/:id", scoresController.destroyScore);
+
 
 module.exports = server;

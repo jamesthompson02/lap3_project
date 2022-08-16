@@ -2,13 +2,19 @@ import React from 'react';
 import { Nav, Navbar, NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Routes = () => {
+const RoutesBar = () => {
   // const back = useNavigate();
   // const handleBackButton = () => {
   //   back(-1);
   // };
   return (
-    <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+    <Navbar
+      collapseOnSelect
+      expand="sm"
+      bg="dark"
+      variant="dark"
+      data-testid="navBar"
+    >
       <Navbar.Toggle
         aria-controls="navbarScroll"
         data-bs-target="#navbarScroll"
@@ -33,4 +39,4 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default RoutesBar;
