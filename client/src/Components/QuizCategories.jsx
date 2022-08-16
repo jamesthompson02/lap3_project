@@ -1,19 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
-const QuizCategories = () => {
 
+const QuizCategories = () => {
     const [categories, setCategories] = useState([]);
-   
+    const [questionNum, setQuestionNum]=useState(-1);
+    
+
+
+
+    const next_question= ()=>{
+        // const question=categories.map(categories=>categories.question);
+        // const answer=categories.map(categories=>categories.answers);
+        setQuestionNum(prev=>prev+1);
+        console.log(question[questionNum])
+        console.log(answer[questionNum])
+
+        
+    }
+
+
 
 
 
     const fetchQuizCategories= async () => {
-        
         const {data} = await axios.get(
             "https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple"
         );
-
         const formattedData=data.results.map((category)=>{
             const incorrectAnswersIndexes=category.incorrect_answers.length;
             const randomIndex= Math.random() * (incorrectAnswersIndexes-0) + 0;
@@ -23,28 +36,51 @@ const QuizCategories = () => {
                 answers:category.incorrect_answers,
             }
         })
+        
         setCategories(formattedData)
-
     }
 
     useEffect(()=>{
         fetchQuizCategories();
-        
-
     },[])
 
+    // const question1=categories.map(categories=>categories.question)
+    // const answer=categories.map(categories=>categories.answers)
 
+    // console.log({categories})
+    // console.log(question1[0])
+    // console.log(answer[0])
 
-    console.log({categories})
+    const question=categories.map(categories=><div className='questions' key={categories.question}>{categories.question}</div>);
+    const answer=categories.map(categories=><div className='answer' key={categories.answers}>{categories.answers}</div>);
+    
 
     return (
         <div>
-            {
-                categories.map(categories=><h2 key={categories.question}>{categories.question}</h2>)
-            }
+            <div className='question_display'>
+               <button onClick={next_question}>
+                next_question
+               </button>
+               <h2>
+                  questions={question[questionNum]}
+
+                
+               </h2>
+               <p>
+                    answers={answer[questionNum]}
+                
+               </p>
+               
+
+            </div>
+            <div>
+               
+                
+
+            </div>
+            
+
         </div>
-        
     );
 }
-
 export default QuizCategories;
