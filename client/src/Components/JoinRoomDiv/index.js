@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Btn from '../Btn';
+import RoomCheckBox from '../RoomCheckBox';
+import './style.css';
 
 const JoinRoomDiv = ({display, handleClick1}) => {
+
+    const navigator2 = useNavigate();
 
     const filterText = useRef();
 
@@ -13,6 +18,25 @@ const JoinRoomDiv = ({display, handleClick1}) => {
     const changeText = (e) => {
         const input = e.target.value;
         setText(input);
+        const allRooms = [...roomsAvailable];
+        const modifiedRooms = [...allRooms.map(room => {
+            const splitSpaces = room.props.room.split(" ");
+            return splitSpaces;            
+        })]
+        const filteredRooms = modifiedRooms.filter(roomName => {
+            if (roomName[0].toLowerCase().startsWith(input.toLowerCase())) {
+                return roomName;
+            }
+        })
+        const restoredRooms = filteredRooms.map(roomName => {
+            if (roomName.length > 1) {
+                return <RoomCheckBox key={newKeyGenerator()} room={roomName.join(" ")} />
+            } else {
+                return <RoomCheckBox key={newKeyGenerator()} room={roomName[0]} />
+            }
+        })
+        setRooms(restoredRooms);
+
     }
 
     function newKeyGenerator() {
@@ -24,12 +48,19 @@ const JoinRoomDiv = ({display, handleClick1}) => {
         return newKey;
     }
 
+    
+
     const getAllRooms = async () => {
         try {
             const response = await axios.get('http://localhost:5002/rooms/');
             const rooms = response.data;
             const getRooms = rooms.map(room => {
-                return <li key={newKeyGenerator()}>{room}</li>
+
+                const newKey = newKeyGenerator();
+    
+                return(
+                    <RoomCheckBox key={newKey} room={room} />
+                )
             });
             setRooms(getRooms);    
         } catch (e) {
@@ -46,10 +77,36 @@ const JoinRoomDiv = ({display, handleClick1}) => {
     }, [display, searchText])
 
 
+    function countCheckedBoxes() {
+        const numOfCheckBoxes = [...document.querySelectorAll(".room-checkbox")];
+        const checkedBoxes = [];
+        const labels = [...document.querySelectorAll(".room-checkbox-label")];
+
+        numOfCheckBoxes.forEach(room => {
+            if (room.checked === true) {
+                checkedBoxes.push(numOfCheckBoxes.indexOf(room));
+            }
+
+        })
+
+        if (checkedBoxes.length === 0) {
+            alert("Please ensure you have selected one room")
+        } else if (checkedBoxes.length > 1) {
+            alert("Please ensure you have only selected one room")
+        } else {
+            setTimeout(() => {
+                navigator2(`../rooms/${labels[checkedBoxes].textContent}`, { replace: true});
+            }, 750);
+        }
+    }
+
+    
+
+
 
 
     return (
-        <div onChange={getAllRooms} style={{display: display, flexDirection: "column"}}>
+        <div style={{display: display, flexDirection: "column"}}>
             <div style={{display: "flex"}}>
                 <label htmlFor='search-rooms'>Search for Rooms:</label>
                 <input ref={filterText} type="text" value={searchText} onChange={changeText} maxLength={20}/>
@@ -64,7 +121,7 @@ const JoinRoomDiv = ({display, handleClick1}) => {
             </div>
             <div style={{display: "flex", justifyContent: "space-between", minWidth: "200px", maxWidth: "250px", margin: "1rem 0"}}>
                 <Btn text="Go Back" handleClick={handleClick1} />
-                <button>Join Room</button>
+                <button onClick={countCheckedBoxes}>Join Room</button>
                 
             </div>
             
