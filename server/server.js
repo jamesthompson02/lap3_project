@@ -9,6 +9,8 @@ const io = require("socket.io")(server, {
   },
 });
 const axios = require("axios");
+const leaderboardRoutes = require("./routes/scoresRoutes");
+const scoresController = require("./controllers/scores");
 
 const roomList = [];
 const activeGames = [];
@@ -163,5 +165,11 @@ app.post("/rooms/join", (req, res) => {
 
   res.status(204).send("Successfully joined room");
 });
+
+app.use("/leaderboard", leaderboardRoutes);
+
+app.post("/create", scoresController.createScore);
+
+app.delete("/delete/:id", scoresController.destroyScore);
 
 module.exports = server;
