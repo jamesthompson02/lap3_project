@@ -1,5 +1,5 @@
 const scoresController = require("../../../controllers/scores");
-const Scores = require("../../../models/Scores");
+const Scores = require("../../../models/scores");
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();
