@@ -1,4 +1,4 @@
-const Scores = require("../models/Scores");
+const Scores = require("../models/scores");
 
 async function findScoresByUsername(req, res) {
   try {

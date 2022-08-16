@@ -8,5 +8,5 @@ CREATE TABLE scores (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     quiz_category VARCHAR(255) NOT NULL,
-    score INT NOT NULL,
+    score INT NOT NULL
 );

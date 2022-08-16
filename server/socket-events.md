@@ -70,6 +70,9 @@ ___
 * new-user ==> `socket.on('new-user', ({userList}) => {}`
 	* Every time a new user enters the room this event will get send to every client in that room. We can update our list of users in the lobby upon receiving this event.
 	* userList = ["user1", "user2", "user3"]
+* host-user ==> `socket.on('next-question', () => {}`
+	* this event is sent to the first user of each lobby, allowing them to be the host
+	* If a user receives this event, they should have a start button on their lobby screen to start the game
 * next-question ==> `socket.on('next-question', ({nextQuestion}) => {}`
 	* When every user has submitted an answer for the current question, the server will send the next one in this event
 	* Currently this is the whole single question object from the API
@@ -79,4 +82,5 @@ ___
 * quiz-finished ==> `socket.on('quiz-finished', ({userScores}) => {}`
 	* Upon users answering the final question, this event is emitted from the server
 	* userScores is an array of objects, where each object contains a username and that user's score
+
 
