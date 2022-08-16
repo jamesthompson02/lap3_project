@@ -1,8 +1,8 @@
-const Scores = require("./Scores");
+const Scores = require("../../../models/Scores");
 const pg = require("pg");
 jest.mock("pg");
 
-const db = require("../db/dbConfig");
+const db = require("../../../db/dbConfig");
 
 describe("Scores", () => {
   beforeEach(() => jest.clearAllMocks());
