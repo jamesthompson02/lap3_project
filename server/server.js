@@ -4,7 +4,7 @@ const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost", //make this the netlify link for the react app
+    origin: "http://localhost:3000", //make this the netlify link for the react app
     methods: ["GET", "POST"],
   },
 });
@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
       return;
     }
     const userID = roomToChange.ids.indexOf(socket.id);
+    const host = (socket.id === roomToChange.host.id)
     if (!roomToChange.open) {
       const gameToChange = activeGames.filter(
         (game) => game.name === roomToChange.name
@@ -44,6 +45,9 @@ io.on("connection", (socket) => {
     }
     roomToChange.ids.splice(userID, 1);
     roomToChange.users.splice(userID, 1);
+    if (host){
+      roomToChange.host = {username: roomToChange.users[0], id: roomToChange.ids[0]}
+    }
   });
 
   // Socket events go here
@@ -61,7 +65,8 @@ io.on("connection", (socket) => {
     currentRoom.users.push(username);
     currentRoom.ids.push(socket.id);
     if (currentRoom.users.length === 1) {
-      currentRoom.host = username;
+      currentRoom.host = {username: username, id: socket.id};
+      socket.emit('host-user')
     }
     socket.join(roomid);
     const userList = currentRoom.users;
@@ -135,7 +140,7 @@ app.post("/rooms/create", async (req, res) => {
   obj["name"] = req.body.roomid; //name of the room and therefore the URL
   obj["users"] = []; //list of users in the room
   obj["ids"] = [];
-  obj["host"] = ""; //set's the first user as the admin so they can have access to the start button
+  obj["host"] = {}; //set's the first user as the admin so they can have access to the start button
   obj["questions"] = await getQuestions(req.body.settings);
   obj["open"] = true;
   roomList.push(obj);
