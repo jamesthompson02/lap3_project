@@ -36,8 +36,10 @@ const QuizSettings = ({display, handleClick1}) => {
 
             const postFormData = async () => {
                 try {
-                    const response = await axios.post('http://localhost:5002/rooms/create',
+                    const response = await axios.post('https://lap3-project.herokuapp.com/rooms/create',
                     {...formData});
+                    console.log(response);
+
                     setTimeout(() => {
                         navigator1(`../rooms/${roomId.current.value}`, { replace: true});
                     }, 750);
