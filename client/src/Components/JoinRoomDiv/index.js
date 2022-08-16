@@ -52,7 +52,7 @@ const JoinRoomDiv = ({display, handleClick1}) => {
 
     const getAllRooms = async () => {
         try {
-            const response = await axios.get('http://localhost:5002/rooms/');
+            const response = await axios.get('https://lap3-project.herokuapp.com/rooms/');
             const rooms = response.data;
             const getRooms = rooms.map(room => {
 
