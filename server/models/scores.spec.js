@@ -21,7 +21,6 @@ describe("Scores", () => {
     test("it resolves with scores all belonging to a single user on successful db query", async () => {
       let userScores = [
         { username: "Test User", quiz_category: "General Knowledge", score: 5 },
-
         {
           username: "Test User",
           quiz_category: "General Knowledge",
@@ -37,16 +36,75 @@ describe("Scores", () => {
     });
   });
 
-  // describe('findScoresByQuizCategory', () => {
-  //     test('it resolves with scores all belonging to a single quiz category')
+  describe("findScoresByQuizCategory", () => {
+    test("it resolves with scores all belonging to a single quiz category ordered by their score in descending order", async () => {
+      let quizScores = [
+        {
+          username: "Test User 3",
+          quiz_category: "General Knowledge",
+          score: 10,
+        },
+        {
+          username: "Test User 4",
+          quiz_category: "General Knowledge",
+          score: 9,
+        },
+        {
+          username: "Test User 1",
+          quiz_category: "General Knowledge",
+          score: 7,
+        },
+        {
+          username: "Test User",
+          quiz_category: "General Knowledge",
+          score: 5,
+        },
+        {
+          username: "Test User 2",
+          quiz_category: "General Knowledge",
+          score: 2,
+        },
+      ];
 
-  // })
+      jest.spyOn(db, "query").mockResolvedValueOnce({ rows: quizScores });
+      const result = await Scores.findScoresByQuizCategory("General Knowledge");
 
-  //   describe('create', () => {
+      expect(result).toHaveLength(5);
+      expect(result[0].username).toBe("Test User 3");
+      expect(result[4].score).toBe(2);
+    });
+  });
 
-  //   })
+  describe("createScore", () => {
+    test("it resolves with score on successful db query", async () => {
+      let scoreData = {
+        username: "Test User",
+        quiz_category: "Japanese Manga & Anime",
+        score: 8,
+      };
+      jest
+        .spyOn(db, "query")
+        .mockResolvedValueOnce({ rows: [{ ...scoreData, id: 1 }] });
+      const result = await Scores.createScore(
+        "Test User",
+        "Japanese Manga & Anime",
+        8
+      );
+      expect(result).toBeInstanceOf(Scores);
+    });
+  });
 
-  //   describe('destroy', () => {
-
-  //   })
+  describe("destroy", () => {
+    test("it resolves with message on successful db query", async () => {
+      jest.spyOn(db, "query").mockResolvedValueOnce({ id: 1 });
+      let testScore = new Scores({
+        id: 1,
+        username: "Test User",
+        quiz_category: "Japanese Manga & Anime",
+        score: 10,
+      });
+      const result = await testScore.destroy();
+      expect(result).toBe("This score (id: 1) has been deleted");
+    });
+  });
 });
