@@ -57,6 +57,20 @@ class Scores {
     });
   }
 
+  static findScoreById(id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let scoreData = await db.query(`SELECT * FROM scores WHERE id = $1;`, [
+          id,
+        ]);
+        let score = new Scores(scoreData.rows[0]);
+        resolve(score);
+      } catch (err) {
+        reject("Score not found: " + err.message);
+      }
+    });
+  }
+
   static createScore(username, quizCategory, score) {
     return new Promise(async (resolve, reject) => {
       try {
