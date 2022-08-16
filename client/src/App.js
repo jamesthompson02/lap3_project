@@ -1,16 +1,13 @@
-
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './Components/Footer';
-import NavBar from './Components/Routes';
+import RoutesBar from './Components/RoutesBar';
 import * as Pages from './Pages';
 
-
-const App=()=> {
+const App = () => {
   return (
-
     <div className="App">
-      <NavBar />
+      <RoutesBar />
       <Footer />
       <Routes>
         <Route path="/" element={<Pages.Home />} />
@@ -20,7 +17,6 @@ const App=()=> {
       </Routes>
     </div>
   );
-
-}
+};
 
 export default App;
