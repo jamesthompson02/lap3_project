@@ -31,21 +31,10 @@ const Quiz = () => {
 
   return (
     <div>
-<<<<<<< HEAD
       <h1 style={{textAlign: "center"}}>Take a Quiz!</h1>
       <StarterQuizDiv display={starterDivDisplay} handleClick1={moveToSettings} handleClick2={movetoJoinRoom} />
       <QuizSettings display={settingsDiv} handleClick1={goBackToStart}/>
       <JoinRoomDiv display={joinRoomDiv} handleClick1={fromJoinToStart}/>
-=======
-      <h1>Quiz Page</h1>
-      <StarterQuizDiv
-        display={starterDivDisplay}
-        handleClick1={moveToSettings}
-        handleClick2={movetoJoinRoom}
-      />
-      <QuizSettings display={settingsDiv} handleClick1={goBackToStart} />
-      <JoinRoomDiv display={joinRoomDiv} handleClick1={fromJoinToStart} />
->>>>>>> a4d702d0779ea3d70d93a8751496d8fea05a111a
     </div>
   );
 };

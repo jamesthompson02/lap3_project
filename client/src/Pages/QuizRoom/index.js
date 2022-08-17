@@ -92,7 +92,7 @@ const QuizRoom = () => {
                         <label htmlFor='usernameInput'>Username:</label>
                         <input ref={inputUsername} id="usernameInput" type="text" maxLength={20} onChange={changeUsername} />
                     </div>
-                    <button style={{marginTop: }}onClick={addUsername}>Create Username</button>
+                    <button style={{marginTop: "2rem" }}onClick={addUsername}>Create Username</button>
 
                 </form>
             </div>
