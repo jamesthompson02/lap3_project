@@ -8,7 +8,6 @@ const App = () => {
   return (
     <div className="App">
       <RoutesBar />
-      <Footer />
       <Routes>
         <Route path="/" element={<Pages.Home />} />
         <Route path="/about" element={<Pages.About />} />
@@ -16,6 +15,7 @@ const App = () => {
         <Route path="/leaderboard" element={<Pages.LeaderBoard />} />
         <Route path="/rooms/:roomId" element={<Pages.QuizRoom />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
