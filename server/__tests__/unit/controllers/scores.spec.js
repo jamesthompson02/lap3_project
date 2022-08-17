@@ -80,7 +80,13 @@ describe("scores controller", () => {
       jest
         .spyOn(Scores, "findScoresByQuizCategory")
         .mockResolvedValue(quizScores);
-      const mockReq = { params: { category: "General Knowledge" } };
+      const mockReq = {
+        body: {
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
+        },
+      };
       await scoresController.findScoresByQuizCategory(mockReq, mockRes);
       expect(mockStatus).toHaveBeenCalledWith(200);
       expect(mockJson).toHaveBeenCalledWith(quizScores);
@@ -110,11 +116,19 @@ describe("scores controller", () => {
 
   describe("delete a score", () => {
     test("it returns a status code of 204 upon successful deletion of a score", async () => {
+      let testScore = new Scores({
+        id: 1,
+        username: "Test User",
+        category: "Japanese Manga & Anime",
+        difficulty: "hard",
+        question_type: "multiple",
+        score: 8,
+      });
       jest
         .spyOn(Scores.prototype, "destroy")
         .mockResolvedValue("This score (id: 1) has been deleted");
-
-      const mockReq = { params: { id: 1 } };
+      jest.spyOn(Scores, "findScoreById").mockResolvedValue(testScore);
+      const mockReq = { params: { id: testScore.id } };
       await scoresController.destroyScore(mockReq, mockRes);
       expect(mockStatus).toHaveBeenCalledWith(204);
     });
