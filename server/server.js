@@ -135,9 +135,9 @@ io.on("connection", (socket) => {
         userScores.forEach((user) => {
           Scores.createScore(
             user.name,
-            currentRoom.settings.category,
-            currentRoom.settings.difficulty,
-            currentRoom.settings.questionType,
+            currentRoom.questions.category,
+            currentRoom.questions.difficulty,
+            currentRoom.questions.questionType,
             user.score
           );
         });
@@ -168,7 +168,6 @@ app.post("/rooms/create", async (req, res) => {
   obj["host"] = {}; //set's the first user as the admin so they can have access to the start button
   obj["questions"] = await getQuestions(req.body.settings);
   obj["open"] = true;
-  obj["settings"] = req.body.settings;
   roomList.push(obj);
   res.status(201).send("Room successfully created : " + obj.name);
 });
