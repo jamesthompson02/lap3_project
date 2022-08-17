@@ -84,16 +84,18 @@ const QuizRoom = () => {
     return (
         <div>
             {/* <UsernameDiv display={userDivDisplay} roomName={roomId} socket={socket}/>  */}
-            <form style={{display: userDivDisplay, flexDirection: "column", alignItems: "center", maxWidth: "500px", border: "1px solid black"}}>
-        
-                <h2>Create a Username!</h2>
-                <div style={{display: "flex"}}>
-                    <label htmlFor='usernameInput'>Username:</label>
-                    <input ref={inputUsername} id="usernameInput" type="text" maxLength={20} onChange={changeUsername} />
-                </div>
-                <button onClick={addUsername}>Create Username</button>
+            <div style={{display: userDivDisplay, minHeight: "calc(100vh - 100px)", justifyContent: "center", alignItems: "center"}}>
+                <form style={{display: "flex", flexDirection: "column", alignItems: "center", maxWidth: "500px", border: "1px solid black", borderRadius: "15px", padding: "2rem"}}>
+            
+                    <h2>Create a Username!</h2>
+                    <div style={{display: "flex"}}>
+                        <label htmlFor='usernameInput'>Username:</label>
+                        <input ref={inputUsername} id="usernameInput" type="text" maxLength={20} onChange={changeUsername} />
+                    </div>
+                    <button style={{marginTop: "1rem"}}onClick={addUsername}>Create Username</button>
 
-            </form>
+                </form>
+            </div>
 
             <LobbyRoom display={lobbyDisplay} roomName={roomId} username={usernameField} userList={userList} hostStatus={isHost} hostFunc={setHost}/> 
 
