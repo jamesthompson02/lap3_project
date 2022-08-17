@@ -14,10 +14,18 @@ describe("scores controller", () => {
   describe("find scores by username", () => {
     test("it returns all the scores by a certain username with a 200 status code", async () => {
       let userScores = [
-        { username: "Test User", quiz_category: "General Knowledge", score: 5 },
         {
           username: "Test User",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
+          score: 5,
+        },
+        {
+          username: "Test User",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 10,
         },
       ];
@@ -34,27 +42,37 @@ describe("scores controller", () => {
       let quizScores = [
         {
           username: "Test User 3",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 10,
         },
         {
           username: "Test User 4",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 9,
         },
         {
           username: "Test User 1",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 7,
         },
         {
           username: "Test User",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 5,
         },
         {
           username: "Test User 2",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 2,
         },
       ];
@@ -74,7 +92,9 @@ describe("scores controller", () => {
       let testScore = {
         id: 1,
         username: "Test User",
-        quiz_category: "Japanese Manga & Anime",
+        category: "Japanese Manga & Anime",
+        difficulty: "hard",
+        question_type: "multiple",
         score: 8,
       };
 

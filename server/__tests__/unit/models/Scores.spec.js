@@ -20,10 +20,18 @@ describe("Scores", () => {
   describe("findScoresByUsername", () => {
     test("it resolves with scores all belonging to a single user on successful db query", async () => {
       let userScores = [
-        { username: "Test User", quiz_category: "General Knowledge", score: 5 },
         {
           username: "Test User",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
+          score: 5,
+        },
+        {
+          username: "Test User",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 10,
         },
       ];
@@ -41,27 +49,37 @@ describe("Scores", () => {
       let quizScores = [
         {
           username: "Test User 3",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 10,
         },
         {
           username: "Test User 4",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 9,
         },
         {
           username: "Test User 1",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 7,
         },
         {
           username: "Test User",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 5,
         },
         {
           username: "Test User 2",
-          quiz_category: "General Knowledge",
+          category: "General Knowledge",
+          difficulty: "hard",
+          question_type: "multiple",
           score: 2,
         },
       ];
@@ -80,7 +98,9 @@ describe("Scores", () => {
       let scoreData = {
         id: 1,
         username: "Test User",
-        quiz_category: "Japanese Manga & Anime",
+        category: "Japanese Manga & Anime",
+        difficulty: "hard",
+        question_type: "multiple",
         score: 8,
       };
 
@@ -94,7 +114,9 @@ describe("Scores", () => {
     test("it resolves with score on successful db query", async () => {
       let scoreData = {
         username: "Test User",
-        quiz_category: "Japanese Manga & Anime",
+        category: "Japanese Manga & Anime",
+        difficulty: "hard",
+        question_type: "multiple",
         score: 8,
       };
       jest
@@ -115,7 +137,9 @@ describe("Scores", () => {
       let testScore = new Scores({
         id: 1,
         username: "Test User",
-        quiz_category: "Japanese Manga & Anime",
+        category: "Japanese Manga & Anime",
+        difficulty: "hard",
+        question_type: "multiple",
         score: 10,
       });
       const result = await testScore.destroy();

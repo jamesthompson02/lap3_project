@@ -6,6 +6,9 @@ const scoresController = require("../controllers/scores");
 
 router.get("/:username", scoresController.findScoresByUsername);
 
-router.get("/:category", scoresController.findScoresByQuizCategory);
+router.get(
+  "/:category/:difficulty/:type",
+  scoresController.findScoresByQuizCategory
+);
 
 module.exports = router;
