@@ -66,6 +66,7 @@ io.on("connection", (socket) => {
     }
     if (currentRoom.users.filter(user => user === username).length > 0){
       socket.emit('name-taken')
+      return;
     }
     currentRoom.users.push(username);
     currentRoom.ids.push(socket.id);
