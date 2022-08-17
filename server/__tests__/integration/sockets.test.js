@@ -136,4 +136,30 @@ describe("Testing socket functionality", () => {
     await new Promise((r) => setTimeout(r, 500));
     expect(mockFn).toHaveBeenCalled();
   });
+
+  it("will refuse entry to a user trying to join an active game that has started", async () => {
+    const mockFn = jest.fn();
+    clientSocket.on(`name-taken`, () => {
+      mockFn();
+    });
+    clientSocket.emit("join-room", {
+      roomid: "validRoom",
+      username: "testUser",
+    });
+    await new Promise((r) => setTimeout(r, 500));
+    clientSocket.emit("join-room", {
+      roomid: "validRoom",
+      username: "testUser",
+    });
+    await new Promise((r) => setTimeout(r, 500));
+    expect(mockFn).toHaveBeenCalled();
+  });
+
+  it("Upon the final user leaving a lobby, the room is closed", async () => {
+    clientSocket.close()
+    await new Promise((r) => setTimeout(r, 500));
+    const res = await request(api).get('/rooms')
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual([])
+  });
 });

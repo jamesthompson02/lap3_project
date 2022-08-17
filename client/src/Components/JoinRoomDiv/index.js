@@ -106,7 +106,7 @@ const JoinRoomDiv = ({display, handleClick1}) => {
 
 
     return (
-        <div style={{display: display, flexDirection: "column"}}>
+        <div style={{display: display, flexDirection: "column", minHeight: "calc(100vh - 100px - 56px)", alignItems: "center"}}>
             <div style={{display: "flex"}}>
                 <label htmlFor='search-rooms'>Search for Rooms:</label>
                 <input ref={filterText} type="text" value={searchText} onChange={changeText} maxLength={20}/>

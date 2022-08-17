@@ -33,6 +33,9 @@ const RoutesBar = () => {
           <NavLink eventKey="4" as={Link} to="/leaderboard">
             LeaderBoard
           </NavLink>
+          <NavLink eventKey="5" as={Link} to="/quiz-categories">
+            QuizCategories
+          </NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
