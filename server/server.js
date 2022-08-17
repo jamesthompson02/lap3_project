@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
       socket.emit("room-closed");
       return;
     }
-    if (currentRoom.users.filter(user => user === username)){
+    if (currentRoom.users.filter(user => user === username).length > 0){
       socket.emit('name-taken')
     }
     currentRoom.users.push(username);
