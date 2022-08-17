@@ -1,41 +1,33 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import io from "socket.io-client";
-const serverEndpoint = "https://lap3-project.herokuapp.com";
 
 
-const UsernameDiv = ({ roomName, display, handleClick1, handleClick2 }) => {
+
+const UsernameDiv = ({ roomName, display, socket }) => {
 
     const inputUsername = useRef();
 
-    const [ socket, setSocket ] = useState(null);
+    
 
     function addUsername(e) {
         e.preventDefault();
 
-        const quizRoom = [];
-        const preExistingUsernames = [];
         
-        const getUsernames = async () => {
-            const { data } = await axios.get('https://lap3-project.herokuapp.com/rooms/data');
-            data.forEach(room => {
-                if (room.name === roomName) {
-                    quizRoom.push(room);
-                }
-            })
-            console.log(quizRoom[0]);
-            handleClick1("none");
-            handleClick2("flex");
+
+        if (!inputUsername.current.value) {
+            alert("Please input a username to continue")
+        } else {
+            socket.emit("join-room", {roomid: roomName, username: inputUsername.current.value});
 
         }
-
-        getUsernames();
+        
+        
 
     }
 
 
     return (
-        <form style={{display: display, flexDirection: "column", alignItems: "center", maxWidth: "500px"}}>
+        <form style={{display: display, flexDirection: "column", alignItems: "center", maxWidth: "500px", border: "1px solid black"}}>
         
             <h2>Create a Username!</h2>
             <div style={{display: "flex"}}>
