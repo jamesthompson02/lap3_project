@@ -34,7 +34,7 @@ ___
 	```javascript
 	useEffect(() => {
     const newSocket = io(serverEndpoint);
-    //define all your socket events
+    //define all your socket events you'll expect to receive
     newSocket.on("custom-event", ({ value1, value2 }) => {
         //Do something with the values
     });
@@ -47,10 +47,16 @@ ___
 
 ## Events the socket can send to the server
 ___ 
-* Join room ==> `socket.emit('join-room', {roomid, username})
+* join-room ==> `socket.emit('join-room', {roomid, username})`
 	* This should be sent as a useEffect as soon as the game page is rendered
 	* `roomid` can be obtained by using the `useParams()` hook as below
 		* `const {roomid} = useParams()`
+* submit-answer ==> `socket.emit('submit-answer', {roomid, username, answer, timer})`
+	* This event should be emitted whenever a user selects an answer for the current question (users should only be able to submit an answer once per question)
+	* It requires the user to send their roomid, username, selected answer and the remaining time on the timer to calculate the score
+* start-game ==> `socket.emit('start-game', {roomid})`
+	* This event should be emitted by the host user who created the lobby upon them clicking the start game button
+	* This will cause the server to stop letting new users into the room and start serving questions to the users
 
 
 <br>
@@ -59,6 +65,25 @@ ___
 ___
 * invalid-room ==> `socket.on('invalid-room', () => {}`
 	- if the room id entered by the user does not exist, this event is sent to the client
-* new-user ==> `socket.on('new-user', ({username}) => {}`
-	* Every time a new user enters the room this event will get send to every client in that room. We can update our list of users in the lobby upon receiving this event
+* room-closed ==> `socket.on('room-closed', () => {}`
+	- if the game has already started, this event is sent back to the user trying to join
+* new-user ==> `socket.on('new-user', ({userList}) => {}`
+	* Every time a new user enters the room this event will get send to every client in that room. We can update our list of users in the lobby upon receiving this event.
+	* userList = ["user1", "user2", "user3"]
+* host-user ==> `socket.on('next-question', () => {}`
+	* this event is sent to the first user of each lobby, allowing them to be the host
+	* If a user receives this event, they should have a start button on their lobby screen to start the game
+* next-question ==> `socket.on('next-question', ({nextQuestion}) => {}`
+	* When every user has submitted an answer for the current question, the server will send the next one in this event
+	* Currently this is the whole single question object from the API
+* game-start ==> `socket.on('game-start', () => {}`
+	* Tells the clients the lobby is now closed and the game is about to start
+	* This event can be used to trigger a change in the display, e.g. to change the lobby view into the game view
+* quiz-finished ==> `socket.on('quiz-finished', ({userScores}) => {}`
+	* Upon users answering the final question, this event is emitted from the server
+	* userScores is an array of objects, where each object contains a username and that user's score
+* name-taken ==> `socket.on('name-taken', () => {}`
+	* sent to the user upon them trying to enter a room but their username is already taken by a user in that room
+	* On receiving this, display an error message telling the client to try another name
+
 
