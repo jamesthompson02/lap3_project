@@ -2,11 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const server = require("http").createServer(app);
+
+const whitelist = ["http://locahost:3000", "*"]
 const io = require("socket.io")(server, {
-  cors: {
-    origin: false, //make this the netlify link for the react app
-    methods: ["GET", "POST"],
-  },
+  cors: "*"
 });
 const axios = require("axios");
 
