@@ -28,13 +28,16 @@ const getQuestions = async (settings) => {
 
 io.on("connection", (socket) => {
   console.log("client connected");
-
   socket.on("disconnect", () => {
     console.log("client disconnected");
     const roomToChange = roomList.filter((room) =>
       room.ids.includes(socket.id)
     )[0];
     if (!roomToChange) {
+      return;
+    }
+    if (roomToChange.users.length === 1){
+      roomList.remove(roomToChange)
       return;
     }
     const userID = roomToChange.ids.indexOf(socket.id);
@@ -50,6 +53,10 @@ io.on("connection", (socket) => {
     roomToChange.users.splice(userID, 1);
     if (host){
       roomToChange.host = {username: roomToChange.users[0], id: roomToChange.ids[0]}
+    }
+    if (roomToChange.open){
+      const newUserList = roomToChange.users;
+      io.to(roomToChange.name).emit('new-user', {userList: newUserList})
     }
   });
 
