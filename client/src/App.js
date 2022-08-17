@@ -13,6 +13,10 @@ const App = () => {
         <Route path="/about" element={<Pages.About />} />
         <Route path="/quiz" element={<Pages.Quiz />} />
         <Route path="/leaderboard" element={<Pages.LeaderBoard />} />
+<<<<<<< HEAD
+=======
+        <Route path="/quiz-categories" element={<Pages.QuizCategories />} />
+>>>>>>> a4d702d0779ea3d70d93a8751496d8fea05a111a
         <Route path="/rooms/:roomId" element={<Pages.QuizRoom />} />
       </Routes>
       <Footer />

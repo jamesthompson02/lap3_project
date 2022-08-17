@@ -4,7 +4,9 @@ class Scores {
   constructor(data) {
     this.id = data.id;
     this.username = data.username;
-    this.quiz_category = data.quiz_category;
+    this.category = data.category;
+    this.difficulty = data.difficulty;
+    this.question_type = data.question_type;
     this.score = data.score;
     //might add a difficulty field to add more filtering
   }
@@ -12,9 +14,7 @@ class Scores {
   static get all() {
     return new Promise(async (resolve, reject) => {
       try {
-        const scoresData = await db.query(
-          `SELECT username, quiz_category, score FROM scores;`
-        );
+        const scoresData = await db.query(`SELECT * FROM scores;`);
         const scores = scoresData.rows.map((score) => new Scores(score));
         resolve(scores);
       } catch (err) {
@@ -28,7 +28,7 @@ class Scores {
     return new Promise(async (resolve, reject) => {
       try {
         let userData = await db.query(
-          `SELECT username, quiz_category, score FROM scores WHERE username = $1;`,
+          `SELECT username, category, difficulty, question_type, score FROM scores WHERE username = $1;`,
           [username]
         );
         let userScores = userData.rows.map((score) => new Scores(score));
@@ -39,13 +39,13 @@ class Scores {
     });
   }
 
-  static findScoresByQuizCategory(category) {
+  static findScoresByQuizCategory(category, difficulty, questionType) {
     //leaderboard for quiz categories
     return new Promise(async (resolve, reject) => {
       try {
         let categoryData = await db.query(
-          `SELECT username, quiz_category, score FROM scores WHERE quiz_category = $1 ORDER BY score DESC;`,
-          [category]
+          `SELECT username, category, difficulty, question_type, score FROM scores WHERE category = $1 AND difficulty = $2 AND question_type = $3 ORDER BY score DESC;`,
+          [category, difficulty, questionType]
         );
         let categoryScores = categoryData.rows.map(
           (score) => new Scores(score)
@@ -71,12 +71,12 @@ class Scores {
     });
   }
 
-  static createScore(username, quizCategory, score) {
+  static createScore(username, category, difficulty, questionType, score) {
     return new Promise(async (resolve, reject) => {
       try {
         let scoreData = await db.query(
-          `INSERT INTO scores (username, quiz_category, score) VALUES ($1, $2, $3) RETURNING *;`,
-          [username, quizCategory, score]
+          `INSERT INTO scores (username, category, difficulty, question_type, score) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+          [username, category, difficulty, questionType, score]
         );
         let newScore = new Scores(scoreData.rows[0]);
         resolve(newScore);
