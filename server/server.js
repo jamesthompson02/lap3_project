@@ -135,9 +135,9 @@ io.on("connection", (socket) => {
         userScores.forEach((user) => {
           Scores.createScore(
             user.name,
-            currentRoom.questions.category,
-            currentRoom.questions.difficulty,
-            currentRoom.questions.questionType,
+            currentRoom.questions[0].category,
+            currentRoom.questions[0].difficulty,
+            currentRoom.questions[0].questionType,
             user.score
           );
         });
