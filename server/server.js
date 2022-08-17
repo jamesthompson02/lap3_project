@@ -37,7 +37,8 @@ io.on("connection", (socket) => {
       return;
     }
     if (roomToChange.users.length === 1){
-      roomList.remove(roomToChange)
+      const indexOfRoom = roomList.indexOf(roomToChange)
+      roomList.splice(indexOfRoom, 1)
       return;
     }
     const userID = roomToChange.ids.indexOf(socket.id);
@@ -63,6 +64,7 @@ io.on("connection", (socket) => {
   // Socket events go here
   socket.on("join-room", ({ roomid, username }) => {
     const currentRoom = roomList.filter((room) => room.name === roomid)[0];
+    
     if (!currentRoom) {
       socket.emit("invalid-room");
       return;
