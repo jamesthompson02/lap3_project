@@ -82,5 +82,8 @@ ___
 * quiz-finished ==> `socket.on('quiz-finished', ({userScores}) => {}`
 	* Upon users answering the final question, this event is emitted from the server
 	* userScores is an array of objects, where each object contains a username and that user's score
+* name-taken ==> `socket.on('name-taken', () => {}`
+	* sent to the user upon them trying to enter a room but their username is already taken by a user in that room
+	* On receiving this, display an error message telling the client to try another name
 
 

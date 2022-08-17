@@ -4,7 +4,7 @@ const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000", //make this the netlify link for the react app
+    origin: false, //make this the netlify link for the react app
     methods: ["GET", "POST"],
   },
 });
@@ -65,7 +65,9 @@ io.on("connection", (socket) => {
       socket.emit("room-closed");
       return;
     }
-    
+    if (currentRoom.users.filter(user => user === username)){
+      socket.emit('name-taken')
+    }
     currentRoom.users.push(username);
     currentRoom.ids.push(socket.id);
     if (currentRoom.users.length === 1) {
@@ -169,6 +171,10 @@ app.post("/rooms/join", (req, res) => {
   const currentRoom = roomList.filter(
     (room) => room.name === req.body.roomid
   )[0];
+  if (currentRoom.users.filter(user => user === req.body.username).length > 0){
+    res.status(400).send("Name already taken")
+    return
+  }
   if (!currentRoom) {
     res.status(400).send("couldn't find that room");
     return;
