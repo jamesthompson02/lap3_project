@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { unstable_HistoryRouter } from 'react-router-dom';
 
 const LobbyRoom = ({
   roomName,

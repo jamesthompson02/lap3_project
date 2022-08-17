@@ -85,6 +85,7 @@ const QuizRoom = () => {
   function addUsername(e) {
     e.preventDefault();
 
+
     if (!inputUsername.current.value) {
       alert('Please input a username to continue');
     } else {
@@ -102,31 +103,23 @@ const QuizRoom = () => {
   const handleStart = () => {
     socket.emit('start-game', { roomid: roomId });
   };
+  
   return (
     <div>
-      {/* <UsernameDiv display={userDivDisplay} roomName={roomId} socket={socket}/>  */}
-      <form
-        style={{
-          display: userDivDisplay,
-          flexDirection: 'column',
-          alignItems: 'center',
-          maxWidth: '500px',
-          border: '1px solid black',
-        }}
-      >
-        <h2>Create a Username!</h2>
-        <div style={{ display: 'flex' }}>
-          <label htmlFor="usernameInput">Username:</label>
-          <input
-            ref={inputUsername}
-            id="usernameInput"
-            type="text"
-            maxLength={20}
-            onChange={changeUsername}
-          />
-        </div>
-        <button onClick={addUsername}>Create Username</button>
-      </form>
+            {/* <UsernameDiv display={userDivDisplay} roomName={roomId} socket={socket}/>  */}
+            <div style={{display: userDivDisplay, minHeight: "calc(100vh - 100px)", justifyContent: "center", alignItems: "center"}}>
+                <form style={{display: "flex", flexDirection: "column", alignItems: "center", maxWidth: "500px", border: "1px solid black", borderRadius: "15px", padding: "2rem"}}>
+            
+                    <h2>Create a Username!</h2>
+                    <div style={{display: "flex"}}>
+                        <label htmlFor='usernameInput'>Username:</label>
+                        <input ref={inputUsername} id="usernameInput" type="text" maxLength={20} onChange={changeUsername} />
+                    </div>
+                    <button style={{marginTop: "1rem"}}onClick={addUsername}>Create Username</button>
+
+                </form>
+            </div>
+        
 
       <LobbyRoom
         display={lobbyDisplay}
