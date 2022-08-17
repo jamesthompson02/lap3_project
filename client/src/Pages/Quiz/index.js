@@ -36,7 +36,7 @@ const Quiz = () => {
 
   return (
     <div>
-      <h1>Quiz Page</h1>
+      <h1 style={{textAlign: "center"}}>Take a Quiz!</h1>
       <StarterQuizDiv display={starterDivDisplay} handleClick1={moveToSettings} handleClick2={movetoJoinRoom} />
       <QuizSettings display={settingsDiv} handleClick1={goBackToStart}/>
       <JoinRoomDiv display={joinRoomDiv} handleClick1={fromJoinToStart}/>

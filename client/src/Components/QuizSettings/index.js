@@ -60,7 +60,7 @@ const QuizSettings = ({display, handleClick1}) => {
 
 
     return (
-        <>
+        <div style={{display: "flex", justifyContent: "center"}}>
             <form style={{display: display}} className="formStyling">
                 <h2>Set Up A New Quiz!</h2>
                 <div className="input-container">
@@ -139,7 +139,7 @@ const QuizSettings = ({display, handleClick1}) => {
             </form>
         
         
-        </>
+        </div>
     );
 }
 
