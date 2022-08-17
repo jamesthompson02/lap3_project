@@ -1,8 +1,22 @@
+import React from 'react';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Render App', () => {
+  beforeEach(() => {
+    render(
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+    );
+  });
+
+  test('Play button exists', () => {
+    const navBar = screen.getByTestId('navBar');
+    expect(navBar).toBeInTheDocument();
+  });
 });
