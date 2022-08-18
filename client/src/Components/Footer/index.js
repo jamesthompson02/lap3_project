@@ -14,7 +14,7 @@ const Footer = () => {
     color: 'white',
   };
   return (
-    <footer className="d-flex flex-column h-100">
+    <footer role="footer" className="d-flex flex-column h-100">
       <div style={style}>&copy; {new Date().getFullYear()}</div>
     </footer>
   );
