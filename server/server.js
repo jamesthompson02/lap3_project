@@ -105,7 +105,7 @@ io.on("connection", (socket) => {
     let nextQuestion = currentRoom.questions[0];
     io.to(roomid).emit("next-question", { nextQuestion });
   });
-  socket.on("submit-answer", ({ roomid, username, answer, timer }) => {
+  socket.on("submit-answer", ({ roomid, username, answer }) => {
     const currentRoom = activeGames.filter((room) => room.name === roomid)[0];
     //update score
     const correctAnswer =
@@ -114,7 +114,7 @@ io.on("connection", (socket) => {
       const currUser = currentRoom.users.filter(
         (user) => user.name === username
       )[0];
-      currUser.score += 1 * timer;
+      currUser.score += (1500 - (currentRoom.ready * (1000 / (currentRoom.users.length))));
     }
     //increase ready count
     currentRoom.ready += 1;
@@ -138,7 +138,8 @@ io.on("connection", (socket) => {
             currentRoom.questions[0].category,
             currentRoom.questions[0].difficulty,
             currentRoom.questions[0].type,
-            user.score
+            user.score,
+            currentRoom.categoryKey
           );
         });
       }
@@ -168,6 +169,7 @@ app.post("/rooms/create", async (req, res) => {
   obj["host"] = {}; //set's the first user as the admin so they can have access to the start button
   obj["questions"] = await getQuestions(req.body.settings);
   obj["open"] = true;
+  obj["categoryKey"] = req.body.settings.category
   roomList.push(obj);
   res.status(201).send("Room successfully created : " + obj.name);
 });

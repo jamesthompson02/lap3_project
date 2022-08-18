@@ -17,8 +17,7 @@ const QuizCategories = ({ socket, roomid, username, data, answers }) => {
     socket.emit('submit-answer', {
       roomid,
       username,
-      answer: choice,
-      timer: 1500,
+      answer: choice
     });
     // grabData();
   };
