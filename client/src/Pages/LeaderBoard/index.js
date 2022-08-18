@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import ReactConfetti from 'react-confetti';
+import React, { useState } from "react";
+import ReactConfetti from "react-confetti";
+import { LeaderBoard } from "../../Components";
 
-const LeaderBoard = () => {
+const LeaderBoardPage = () => {
   const styles = {
-    textAlign: 'center',
-    listStylePosition: 'inside',
+    textAlign: "center",
+    listStylePosition: "inside",
   };
   const [dimension, setDimension] = useState({
     width: window.innerWidth,
@@ -14,7 +15,9 @@ const LeaderBoard = () => {
   return (
     <div style={styles}>
       <ReactConfetti />
-      <h1>Final Scores</h1>
+      <LeaderBoard />
+
+      {/* <h1>Final Scores</h1>
       <br />
       <h5>Here is your score:</h5>
       <br />
@@ -28,9 +31,9 @@ const LeaderBoard = () => {
         <li>Jack: 9</li>
         <li>Jack: 9</li>
         <li>Jack: 9</li>
-      </ol>
+      </ol> */}
     </div>
   );
 };
 
-export default LeaderBoard;
+export default LeaderBoardPage;

@@ -1,0 +1,30 @@
+.tableDiv table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid forestgreen;
+  width: 95%;
+  height: max-content;
+  margin: 0 auto;
+}
+
+.tableDiv th {
+  border-bottom: 1px solid forestgreen;
+}
+
+.tableDiv tr {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.tableHead {
+  width: 20%;
+  text-align: center;
+}
+
+.tableBody {
+  width: 20%;
+  text-align: center;
+}

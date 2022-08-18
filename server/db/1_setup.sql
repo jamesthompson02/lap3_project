@@ -14,5 +14,6 @@ CREATE TABLE scores (
     category VARCHAR(255) NOT NULL,
     difficulty VARCHAR(25) NOT NULL,
     question_type VARCHAR(25) NOT NULL,
-    score INT NOT NULL
+    score INT NOT NULL,
+    category_id INT
 );

@@ -20,6 +20,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 5,
+          category_id: 9,
         },
         {
           username: "Test User",
@@ -27,6 +28,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 10,
+          category_id: 9,
         },
       ];
       jest.spyOn(Scores, "findScoresByUsername").mockResolvedValue(userScores);
@@ -46,6 +48,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 10,
+          category_id: 9,
         },
         {
           username: "Test User 4",
@@ -53,6 +56,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 9,
+          category_id: 9,
         },
         {
           username: "Test User 1",
@@ -60,6 +64,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 7,
+          category_id: 9,
         },
         {
           username: "Test User",
@@ -67,6 +72,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 5,
+          category_id: 9,
         },
         {
           username: "Test User 2",
@@ -74,6 +80,7 @@ describe("scores controller", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 2,
+          category_id: 9,
         },
       ];
 
@@ -81,8 +88,8 @@ describe("scores controller", () => {
         .spyOn(Scores, "findScoresByQuizCategory")
         .mockResolvedValue(quizScores);
       const mockReq = {
-        body: {
-          category: "General Knowledge",
+        params: {
+          categoryId: 9,
           difficulty: "hard",
           question_type: "multiple",
         },
@@ -102,6 +109,7 @@ describe("scores controller", () => {
         difficulty: "hard",
         question_type: "multiple",
         score: 8,
+        category_id: 31,
       };
 
       jest
@@ -123,6 +131,7 @@ describe("scores controller", () => {
         difficulty: "hard",
         question_type: "multiple",
         score: 8,
+        category_id: 31,
       });
       jest
         .spyOn(Scores.prototype, "destroy")
