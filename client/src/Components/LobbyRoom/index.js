@@ -24,6 +24,15 @@ const LobbyRoom = ({
     }
   }, [display, userList]);
 
+    function newKeyGenerator() {
+        let newKey = "";
+        for (let i = 0; i <= 24; i++) {
+            let newNum = Math.floor(Math.random() * 10);
+            newKey += newNum;
+        }
+        return newKey
+    }
+
     const displayAllUsers = userList.map(username => {
         return <li key={newKeyGenerator()}>{username}</li>
     })
@@ -39,7 +48,7 @@ const LobbyRoom = ({
                 </ul>
             </div>
 
-            { hostStatus ? <button style={{maxWidth: "150px"}}>Start Game</button> : console.log("")}
+            { hostStatus ? <button onClick={onClick} style={{maxWidth: "150px"}}>Start Game</button> : console.log("")}
             
         </div>
     );

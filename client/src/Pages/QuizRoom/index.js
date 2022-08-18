@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import io from "socket.io-client";
 import LobbyRoom from '../../Components/LobbyRoom';
+import { default as QuizCategories } from '../QuizCategories';
 
 
 const QuizRoom = () => {
@@ -138,7 +139,7 @@ const QuizRoom = () => {
                 </form>
             </div>
 
-            <LobbyRoom display={lobbyDisplay} roomName={roomId} username={usernameField} userList={userList} hostStatus={isHost} hostFunc={setHost}/> 
+            <LobbyRoom display={lobbyDisplay} roomName={roomId} username={usernameField} userList={userList} hostStatus={isHost} hostFunc={setHost} onClick={handleStart}/> 
             
             
             {started ? (
