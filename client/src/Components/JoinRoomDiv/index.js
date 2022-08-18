@@ -109,7 +109,7 @@ const JoinRoomDiv = ({display, handleClick1}) => {
         <div style={{display: display, flexDirection: "column", minHeight: "calc(100vh - 100px - 56px)", alignItems: "center"}}>
             <div style={{display: "flex"}}>
                 <label htmlFor='search-rooms'>Search for Rooms:</label>
-                <input ref={filterText} type="text" value={searchText} onChange={changeText} maxLength={20}/>
+                <input ref={filterText} type="text" value={searchText} onChange={changeText} maxLength={20} className="form-control"/>
             </div>
             <div style={{display: "flex", flexDirection: "column"}}>
                 {roomsAvailable}
@@ -121,7 +121,7 @@ const JoinRoomDiv = ({display, handleClick1}) => {
             </div>
             <div style={{display: "flex", justifyContent: "space-between", minWidth: "200px", maxWidth: "250px", margin: "1rem 0"}}>
                 <Btn text="Go Back" handleClick={handleClick1} />
-                <button onClick={countCheckedBoxes}>Join Room</button>
+                <button onClick={countCheckedBoxes} className="btn btn-primary">Join Room</button>
                 
             </div>
             

@@ -29,7 +29,7 @@ const RoomCheckBox = ({room}) => {
 
     return (
         <div>
-           <input id={addKey} type="checkbox" checked={checked} className="room-checkbox" onChange={checkBox}/>
+           <input id={addKey} type="checkbox" checked={checked} className="room-checkbox form-check-input" onChange={checkBox}/>
             <label  htmlFor={addKey} className="room-checkbox-label">{room}</label>  
         </div>
                
