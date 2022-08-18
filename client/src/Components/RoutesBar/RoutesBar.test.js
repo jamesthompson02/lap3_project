@@ -13,7 +13,6 @@ describe('Routes', () => {
     const navBar = screen.getByTestId('navBar');
     expect(navBar).toBeInTheDocument();
     expect(navBar).toHaveTextContent('Home');
-    expect(navBar).toHaveTextContent('About');
     expect(navBar).toHaveTextContent('Quiz');
     expect(navBar).toHaveTextContent('LeaderBoard');
   });

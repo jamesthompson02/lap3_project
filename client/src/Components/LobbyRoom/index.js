@@ -42,7 +42,7 @@ const LobbyRoom = ({
         <div style={{display: display, flexDirection: "column", minHeight: "calc(100vh - 105px)", alignItems: "center", justifyContent: "center"}}>
             <h2>Welcome to {roomName}</h2>
             <div style={{display: "flex", flexDirection: "column", border: "1px solid black", alignItems: "center", margin: "2rem 0", borderRadius: "10px"}}>
-                <ul style={{listStyle: "none", padding: "2rem"}}>
+                <ul aria-label="listOfUsers" style={{listStyle: "none", padding: "2rem"}}>
                     <li style={{textDecoration: "underline"}}>UserList:</li>
                     {displayAllUsers}
                 </ul>
