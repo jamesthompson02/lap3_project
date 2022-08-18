@@ -5,11 +5,9 @@ import LobbyRoom from "../../Components/LobbyRoom";
 import QuizResults from "../../Components/QuizResults";
 import { default as QuizCategories } from "../QuizCategories";
 
-const QuizRoom = () => {
+const QuizRoom = ({socketEndpoint}) => {
   const { roomId } = useParams();
-
-  const serverEndpoint = "https://lap3-project.herokuapp.com";
-
+  const serverEndpoint = socketEndpoint || "https://lap3-project.herokuapp.com";
   const [userDivDisplay, setUserDisplay] = useState("flex");
   const [lobbyDisplay, setLobbyDisplay] = useState("none");
 
@@ -67,7 +65,6 @@ const QuizRoom = () => {
       setLobbyScores(userScores);
       socket.close();
     });
-
     setSocket(newSocket);
   }, []);
 
@@ -114,7 +111,7 @@ const QuizRoom = () => {
 
   return (
     <div>
-      <div
+      <div role="usernameDiv"
         style={{
           display: userDivDisplay,
           minHeight: "calc(100vh - 100px)",
