@@ -30,14 +30,14 @@ const QuizRoom = () => {
     
     const [answers, setAnswers] = useState([]);
     
-     const [started, setStarted] = useState(false);
+    const [started, setStarted] = useState(false);
 
-const [started, setStarted] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [data, setData] = useState({});
-  const [answers, setAnswers] = useState([]);
-  const [lobbyScores, setLobbyScores] = useState([])
-  const inputUsername = useRef();
+
+    const [finished, setFinished] = useState(false);
+
+
+    const [lobbyScores, setLobbyScores] = useState([])
+
     
     useEffect(() => {
 
