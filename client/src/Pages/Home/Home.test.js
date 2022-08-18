@@ -9,6 +9,4 @@ describe('Home Page', () => {
         expect(heading.textContent).toContain('Welcome to Triviaholic!');
     });
 
-    
-
 }); 

@@ -10,7 +10,6 @@ const App = () => {
       <RoutesBar />
       <Routes>
         <Route path="/" element={<Pages.Home />} />
-        <Route path="/about" element={<Pages.About />} />
         <Route path="/quiz" element={<Pages.Quiz />} />
         <Route path="/leaderboard" element={<Pages.LeaderBoard />} />
         <Route path="/rooms/:roomId" element={<Pages.QuizRoom />} />

@@ -1,7 +1,7 @@
 import { default as StarterQuizDiv } from '.';
 import { default as Btn } from './../Btn';
 import { screen, render } from '@testing-library/react';
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
 describe('StarterQuizDiv', () => {
