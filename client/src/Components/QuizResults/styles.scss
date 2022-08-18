@@ -1,0 +1,23 @@
+#result-list {  
+
+  li {
+    animation: fadein 1000ms ease-out forwards;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+    @for $i from 1 through 50 {
+      &:nth-child(#{$i}) {
+        animation-delay: 500ms * $i;
+      }
+    }
+  }
+}
+
+@keyframes fadein {
+    0%{
+        opacity: 0;
+        transform: rotateY(-90deg);}
+    100%{
+        opacity: 1;
+        transform: none}
+}
+

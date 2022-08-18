@@ -137,7 +137,7 @@ io.on("connection", (socket) => {
             user.name,
             currentRoom.questions[0].category,
             currentRoom.questions[0].difficulty,
-            currentRoom.questions[0].questionType,
+            currentRoom.questions[0].type,
             user.score
           );
         });
