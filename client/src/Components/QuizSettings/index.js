@@ -60,8 +60,8 @@ const QuizSettings = ({display, handleClick1}) => {
 
 
     return (
-        <>
-            <form style={{display: display}} className="formStyling">
+        <div style={{display: "flex", justifyContent: "center"}}>
+            <form role="form" style={{display: display}} className="formStyling">
                 <h2>Set Up A New Quiz!</h2>
                 <div className="input-container">
                     <label className='form-label' htmlFor='room-id'>Room id:</label>
@@ -139,7 +139,7 @@ const QuizSettings = ({display, handleClick1}) => {
             </form>
         
         
-        </>
+        </div>
     );
 }
 

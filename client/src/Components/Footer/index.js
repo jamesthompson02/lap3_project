@@ -6,17 +6,17 @@ const Footer = () => {
     borderTop: '1px solid #E7E7E7',
     textAlign: 'center',
     padding: '20px',
-    position: 'fixed',
-    left: '0',
-    bottom: '0',
+    // position: 'fixed',
+    // left: '0',
+    // bottom: '0',
     height: '60px',
     width: '100%',
     color: 'white',
   };
   return (
-    <div className="d-flex flex-column h-100">
+    <footer className="d-flex flex-column h-100">
       <div style={style}>&copy; {new Date().getFullYear()}</div>
-    </div>
+    </footer>
   );
 };
 

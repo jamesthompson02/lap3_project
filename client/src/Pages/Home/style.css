@@ -1,0 +1,12 @@
+.btnStyle {
+    border-radius: 15px;
+    border: 1px solid rgb(0, 108, 0);
+    background-color: black;
+    color: green;
+    padding: 0.2rem 0.8rem;
+
+}
+
+.btStyle:hover {
+    cursor: pointer;
+}

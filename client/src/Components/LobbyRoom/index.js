@@ -24,35 +24,34 @@ const LobbyRoom = ({
     }
   }, [display, userList]);
 
-  function newKeyGenerator() {
-    let newKey = '';
-    for (let i = 0; i <= 24; i++) {
-      let newNum = Math.floor(Math.random() * 10);
-      newKey += newNum;
+    function newKeyGenerator() {
+        let newKey = "";
+        for (let i = 0; i <= 24; i++) {
+            let newNum = Math.floor(Math.random() * 10);
+            newKey += newNum;
+        }
+        return newKey
     }
-    return newKey;
-  }
 
-  const displayAllUsers = userList.map((username) => {
-    return <li key={newKeyGenerator()}>{username}</li>;
-  });
+    const displayAllUsers = userList.map(username => {
+        return <li key={newKeyGenerator()}>{username}</li>
+    })
+    
 
-  return (
-    <div style={{ display: display, flexDirection: 'column' }}>
-      <h2>Welcome to {roomName}</h2>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <ul style={{ listStyle: 'none' }}>{displayAllUsers}</ul>
-      </div>
+    return (
+        <div style={{display: display, flexDirection: "column", minHeight: "calc(100vh - 105px)", alignItems: "center", justifyContent: "center"}}>
+            <h2>Welcome to {roomName}</h2>
+            <div style={{display: "flex", flexDirection: "column", border: "1px solid black", alignItems: "center", margin: "2rem 0", borderRadius: "10px"}}>
+                <ul style={{listStyle: "none", padding: "2rem"}}>
+                    <li style={{textDecoration: "underline"}}>UserList:</li>
+                    {displayAllUsers}
+                </ul>
+            </div>
 
-      {hostStatus ? (
-        <button onClick={onClick} style={{ maxWidth: '150px' }}>
-          Start Game
-        </button>
-      ) : (
-        console.log('')
-      )}
-    </div>
-  );
-};
+            { hostStatus ? <button onClick={onClick} style={{maxWidth: "150px"}}>Start Game</button> : console.log("")}
+            
+        </div>
+    );
+}
 
 export default LobbyRoom;
