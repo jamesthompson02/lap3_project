@@ -103,13 +103,13 @@ describe("Testing socket functionality", () => {
 
   it("will refuse entry to a user trying to join an active game that has started", async () => {
     const mockFn = jest.fn();
-    clientSocket.on(`room-closed`, () => {
+    clientSocket.on("room-closed", () => {
       mockFn();
     });
-    clientSocket.emit("start-game", { roomid: "validRoom" });
+    
     clientSocket.emit("join-room", {
       roomid: "validRoom",
-      username: "testUser",
+      username: "testingUser",
     });
     await new Promise((r) => setTimeout(r, 500));
     expect(mockFn).toHaveBeenCalled();
@@ -124,14 +124,12 @@ describe("Testing socket functionality", () => {
     clientSocket.emit("submit-answer", {
       roomid: "validRoom",
       username: "testUser",
-      answer: "A Message",
-      timer: 1500,
+      answer: "A Message"
     });
     clientSocket.emit("submit-answer", {
       roomid: "validRoom",
       username: "testUser",
-      answer: "A Message",
-      timer: 1500,
+      answer: "A Message"
     });
     await new Promise((r) => setTimeout(r, 500));
     expect(mockFn).toHaveBeenCalled();
