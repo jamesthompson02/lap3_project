@@ -3,8 +3,8 @@ import React from 'react';
 const CardQuestion = ({ category, question }) => {
   return (
     <div>
-      <div>{category}</div>
-      <div>{question}</div>
+      <div aria-label="Category">{category}</div>
+      <div aria-label="Question">{question}</div>
     </div>
   );
 };
