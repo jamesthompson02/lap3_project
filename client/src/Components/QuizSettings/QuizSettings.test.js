@@ -6,9 +6,11 @@ import userEvent from '@testing-library/user-event';
 
 describe('QuizSettings', () => {
     let handleClick1 = jest.fn();
-    window.alert = jest.fn();
-    let submitForm = jest.fn(e => e.preventDefault());
+    global.alert = jest.fn();
+    // let submitForm = jest.fn(e => e.preventDefault());
+    // jest.spyOn(QuizSettings, "submitForm").mockImplementation(() => {});
     let display = "flex";
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
 
     beforeEach(() => {
         render(<Router>
@@ -33,6 +35,15 @@ describe('QuizSettings', () => {
         userEvent.click(button);
         expect(submitForm).toHaveBeenCalled();
     });
+
+    test("it rejects a room name that contains a space", () => {
+        const input = screen.getByRole("textbox");
+        const button = screen.getAllByRole("button")[1];
+        userEvent.type(input, "test room");
+        userEvent.click(button);
+        expect(global.alert).toHaveBeenCalled();
+
+    })
 
     // test("it tries to create a new room called testroom", async () => {
     //     const input = screen.getByRole("textbox");

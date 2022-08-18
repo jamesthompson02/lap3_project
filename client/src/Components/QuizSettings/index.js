@@ -130,7 +130,7 @@ const QuizSettings = ({display, handleClick1}) => {
 
                 <div style={{display: "flex", justifyContent: "space-between", minWidth: "200px"}}>
                     <Btn text="Go Back" handleClick={handleClick1} />
-                    <button type="submit" onClick={submitForm}>Submit</button>
+                    <button onClick={submitForm}>Submit</button>
                 </div>
                 
                 
