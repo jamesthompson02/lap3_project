@@ -114,7 +114,7 @@ io.on("connection", (socket) => {
       const currUser = currentRoom.users.filter(
         (user) => user.name === username
       )[0];
-      currUser.score += (1500 - (currentRoom.ready * (1000 / (currentRoom.users.length - 1))));
+      currUser.score += (1500 - (currentRoom.ready * (1000 / (currentRoom.users.length))));
     }
     //increase ready count
     currentRoom.ready += 1;
