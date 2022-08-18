@@ -8,6 +8,7 @@ class Scores {
     this.difficulty = data.difficulty;
     this.question_type = data.question_type;
     this.score = data.score;
+    this.category_id = data.category_id;
     //might add a difficulty field to add more filtering
   }
 
@@ -39,13 +40,13 @@ class Scores {
     });
   }
 
-  static findScoresByQuizCategory(category, difficulty, questionType) {
+  static findScoresByQuizCategory(categoryId, difficulty, questionType) {
     //leaderboard for quiz categories
     return new Promise(async (resolve, reject) => {
       try {
         let categoryData = await db.query(
-          `SELECT username, category, difficulty, question_type, score FROM scores WHERE category = $1 AND difficulty = $2 AND question_type = $3 ORDER BY score DESC;`,
-          [category, difficulty, questionType]
+          `SELECT username, category, difficulty, question_type, score FROM scores WHERE category_id = $1 AND difficulty = $2 AND question_type = $3 ORDER BY score DESC;`,
+          [categoryId, difficulty, questionType]
         );
         let categoryScores = categoryData.rows.map(
           (score) => new Scores(score)
@@ -71,12 +72,19 @@ class Scores {
     });
   }
 
-  static createScore(username, category, difficulty, questionType, score) {
+  static createScore(
+    username,
+    category,
+    difficulty,
+    questionType,
+    score,
+    categoryId
+  ) {
     return new Promise(async (resolve, reject) => {
       try {
         let scoreData = await db.query(
-          `INSERT INTO scores (username, category, difficulty, question_type, score) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
-          [username, category, difficulty, questionType, score]
+          `INSERT INTO scores (username, category, difficulty, question_type, score, category_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
+          [username, category, difficulty, questionType, score, categoryId]
         );
         let newScore = new Scores(scoreData.rows[0]);
         resolve(newScore);

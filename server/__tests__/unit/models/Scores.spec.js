@@ -26,6 +26,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 5,
+          category_id: 9,
         },
         {
           username: "Test User",
@@ -33,6 +34,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 10,
+          category_id: 9,
         },
       ];
       jest.spyOn(db, "query").mockResolvedValueOnce({ rows: userScores });
@@ -53,6 +55,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 10,
+          category_id: 9,
         },
         {
           username: "Test User 4",
@@ -60,6 +63,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 9,
+          category_id: 9,
         },
         {
           username: "Test User 1",
@@ -67,6 +71,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 7,
+          category_id: 9,
         },
         {
           username: "Test User",
@@ -74,6 +79,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 5,
+          category_id: 9,
         },
         {
           username: "Test User 2",
@@ -81,6 +87,7 @@ describe("Scores", () => {
           difficulty: "hard",
           question_type: "multiple",
           score: 2,
+          category_id: 9,
         },
       ];
 
@@ -102,6 +109,7 @@ describe("Scores", () => {
         difficulty: "hard",
         question_type: "multiple",
         score: 8,
+        category_id: 31,
       };
 
       jest.spyOn(db, "query").mockResolvedValueOnce({ rows: [scoreData] });
@@ -118,6 +126,7 @@ describe("Scores", () => {
         difficulty: "hard",
         question_type: "multiple",
         score: 8,
+        category_id: 31,
       };
       jest
         .spyOn(db, "query")
@@ -125,7 +134,10 @@ describe("Scores", () => {
       const result = await Scores.createScore(
         "Test User",
         "Japanese Manga & Anime",
-        8
+        "hard",
+        "multiple",
+        8,
+        31
       );
       expect(result).toBeInstanceOf(Scores);
     });
@@ -141,6 +153,7 @@ describe("Scores", () => {
         difficulty: "hard",
         question_type: "multiple",
         score: 10,
+        category_id: 31,
       });
       const result = await testScore.destroy();
       expect(result).toBe("This score (id: 1) has been deleted");
