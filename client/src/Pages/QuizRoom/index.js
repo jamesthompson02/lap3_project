@@ -41,12 +41,11 @@ const QuizRoom = () => {
     });
 
     newSocket.on("next-question", ({ nextQuestion }) => {
-      //Do something with the values
       setData(nextQuestion);
-      const joinedAnswers = setAnswers([
+      const joinedAnswers = [
         nextQuestion.correct_answer,
         ...nextQuestion.incorrect_answers,
-      ]);
+      ];
       const shuffledAnswers = shuffle(joinedAnswers);
       setAnswers(shuffledAnswers);
     });
@@ -67,20 +66,6 @@ const QuizRoom = () => {
       setFinished(true);
       setLobbyScores(userScores);
       socket.close();
-    });
-
-    newSocket.on("next-question", ({ nextQuestion }) => {
-      //Do something with the values
-      setData(nextQuestion);
-      // const joinedAnswers = setAnswers([
-      //   nextQuestion.correct_answer,
-      //   ...nextQuestion.incorrect_answers,
-      // ]);
-      const shuffledAnswers = shuffle([
-        nextQuestion.correct_answer,
-        ...nextQuestion.incorrect_answers,
-      ]);
-      setAnswers(shuffledAnswers);
     });
 
     setSocket(newSocket);
@@ -109,9 +94,8 @@ const QuizRoom = () => {
   };
 
   function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
+    let currentIndex = array.length
+    let temporaryValue, randomIndex;
 
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
