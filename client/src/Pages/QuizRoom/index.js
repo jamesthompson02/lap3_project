@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import io from "socket.io-client";
 import LobbyRoom from '../../Components/LobbyRoom';
+import QuizResults from '../../Components/QuizResults';
 import { default as QuizCategories } from '../QuizCategories';
 
 
@@ -20,6 +21,7 @@ const QuizRoom = () => {
 
     const [ socket, setSocket ] = useState(null);
 
+
     const [usernameField, setUsername ] = useState("");
 
     const inputUsername = useRef();
@@ -30,6 +32,12 @@ const QuizRoom = () => {
     
      const [started, setStarted] = useState(false);
 
+const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [data, setData] = useState({});
+  const [answers, setAnswers] = useState([]);
+  const [lobbyScores, setLobbyScores] = useState([])
+  const inputUsername = useRef();
     
     useEffect(() => {
 
@@ -61,16 +69,39 @@ const QuizRoom = () => {
             setUserDisplay("none");
             setLobbyDisplay("flex");
             setUserList(userList);
-
             
         });
+        
+         newSocket.on('game-start', () => {
+          setLobbyDisplay('none');
+          setStarted(true);
+        });
+
+        newSocket.on('quiz-finished', ({userScores}) => {
+          setStarted(false);
+          setFinished(true);
+          setLobbyScores(userScores)
+          socket.close()
+        });
+      
+       newSocket.on('next-question', ({ nextQuestion }) => {
+      //Do something with the values
+      setData(nextQuestion);
+      // const joinedAnswers = setAnswers([
+      //   nextQuestion.correct_answer,
+      //   ...nextQuestion.incorrect_answers,
+      // ]);
+      const shuffledAnswers = shuffle([nextQuestion.correct_answer,...nextQuestion.incorrect_answers,]);
+      setAnswers(shuffledAnswers);
+    });
 
         
         setSocket(newSocket);
         }, []
     );
 
-       
+   
+
 
 
     
@@ -97,6 +128,9 @@ const QuizRoom = () => {
         const newUsername = inputUsername.current.value;
         setUsername(newUsername);
     }
+
+
+   
 
 
   const handleStart = () => {
@@ -151,13 +185,12 @@ const QuizRoom = () => {
           answers={answers}
         />
       ) : null}
-            
+      {finished ?
+      <QuizResults results={lobbyScores} /> :
+      null}
+    </div>
+  );
+};
 
-            
-        </div>
-    );
-}
-
-           
 
 export default QuizRoom;
