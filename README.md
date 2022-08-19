@@ -78,3 +78,6 @@ Please reach out to us if you find any
 - HTML5,CSS3
 - Bootstrap
 - NPM
+
+Copyright © 2022 [Triviaholic](https://github.com/SampurnaC/lap3_project). <br />
+This project is [MIT](https://github.com/SampurnaC/lap3_project/blob/dev-sam/licence) licensed.
