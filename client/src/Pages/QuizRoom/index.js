@@ -26,6 +26,8 @@ const QuizRoom = ({socketEndpoint}) => {
   const [data, setData] = useState({});
   const [answers, setAnswers] = useState([]);
   const [lobbyScores, setLobbyScores] = useState([]);
+  const [waiting, setWaiting] = useState(null);
+
 
   useEffect(() => {
     const newSocket = io(serverEndpoint);
@@ -39,6 +41,7 @@ const QuizRoom = ({socketEndpoint}) => {
     });
 
     newSocket.on("next-question", ({ nextQuestion }) => {
+      setWaiting(false)
       setData(nextQuestion);
       const joinedAnswers = [
         nextQuestion.correct_answer,
@@ -62,7 +65,8 @@ const QuizRoom = ({socketEndpoint}) => {
     newSocket.on("quiz-finished", ({ userScores }) => {
       setStarted(false);
       setFinished(true);
-      setLobbyScores(userScores);
+      let orderedScores = orderScores(userScores)
+      setLobbyScores(orderedScores);
       socket.close();
     });
     setSocket(newSocket);
@@ -109,6 +113,10 @@ const QuizRoom = ({socketEndpoint}) => {
     return array;
   }
 
+  function orderScores(scores){
+    scores.sort((a, b) => (a.score < b.score ? 1 : -1))
+    return scores
+  }
   return (
     <div>
       <div role="usernameDiv"
@@ -164,6 +172,8 @@ const QuizRoom = ({socketEndpoint}) => {
           username={usernameField}
           data={data}
           answers={answers}
+          waiting={waiting}
+          setWaiting={setWaiting}
         />
       ) : null}
       {finished ? <QuizResults results={lobbyScores} /> : null}
