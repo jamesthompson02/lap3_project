@@ -1,7 +1,7 @@
 import React from 'react';
 import image from "./../../Images/homepage-pic-lap-3-project-removebg-preview.png";
 import './style.css';
-
+//
 
 const Home = () => {
 
