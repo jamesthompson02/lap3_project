@@ -14,7 +14,7 @@ Create a multiplayer quiz app using React, Express and Socket
 
 #### Client
 
-[Triviaholic](https://famous-gumption-3a3b4c.netlify.app/)
+[Triviaholic](https://triviaholic5.netlify.app/)
 
 #### Server
 
