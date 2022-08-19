@@ -13,9 +13,9 @@ async function findScoresByQuizCategory(req, res) {
   //leaderboard
   try {
     const scores = await Scores.findScoresByQuizCategory(
-      req.body.category,
-      req.body.difficulty,
-      req.body.type
+      req.params.categoryId,
+      req.params.difficulty,
+      req.params.type
     ); // most categories have spaces in them will need to add a method to help with this or could just save categories as numbers in the database but would me or could send in the body but then url endpoint would change
     res.status(200).json(scores);
   } catch (err) {
@@ -30,7 +30,8 @@ async function createScore(req, res) {
       req.body.category,
       req.body.difficulty,
       req.body.type,
-      req.body.score
+      req.body.score,
+      req.body.categoryId
     );
     res.status(201).json(score);
   } catch (err) {

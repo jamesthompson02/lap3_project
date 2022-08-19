@@ -23,26 +23,42 @@ const QuizCategories = ({ socket, roomid, username, data, answers }) => {
   };
 
   return (
-    <div className="quiz">
-      {data.question ? (
-        <CardQuestion category={data.category} question={data.question} />
-      ) : (
-        <span>Loading...</span>
-      )}
-      <div className="answers">
-        {answers.length > 0 &&
-          answers.map((answer, index) => {
-            return (
-              <Answers
-                choice={handleClick}
-                answer={answer}
-                correct={data.correct_answer}
-                id={index}
-                handleClick={handleClick}
-                // color={buttonColor}
-              />
-            );
-          })}
+    <div className="container">
+      <div className='d-flex align-items-center justify-content-center'>
+      <div className="row">
+        <div className="col"></div>
+        <div className="">
+        <div className="card text-center mt-5 ">
+          <div className="card">
+            <div className="card-body">
+              <div className="quiz">
+                {data.question ? (
+                  <CardQuestion category={data.category} question={data.question} />
+                ) : (
+                  <span>Loading...</span>
+                )}
+                <div className="answers">
+                  {answers.length > 0 &&
+                    answers.map((answer, index) => {
+                      return (
+                        <Answers
+                          choice={handleClick}
+                          answer={answer}
+                          correct={data.correct_answer}
+                          id={index}
+                          handleClick={handleClick}
+                          // color={buttonColor}
+                        />
+                      );
+                    })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div className="col"></div>
+      </div>
       </div>
     </div>
   );
