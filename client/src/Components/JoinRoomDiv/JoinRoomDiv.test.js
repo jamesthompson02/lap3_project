@@ -17,6 +17,7 @@ describe("JoinRoomDiv", () => {
     // const rooms = ["room1", "room2"];
 
     // let newKeyGenerator = jest.fn();
+    //
 
     // const getRooms = rooms.map(room => {
 

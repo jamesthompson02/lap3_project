@@ -108,7 +108,7 @@ const JoinRoomDiv = ({display, handleClick1}) => {
     return (
         <div style={{display: display, flexDirection: "column", minHeight: "calc(100vh - 100px - 56px)", alignItems: "center"}}>
             <div style={{display: "flex"}}>
-                <label aria-label="searchHeader" htmlFor='search-rooms'>Search for Rooms:</label>
+                <label  aria-label="searchHeader" htmlFor='search-rooms'>Search for Rooms:</label>
                 <input ref={filterText} type="text" value={searchText} onChange={changeText} maxLength={20} className="form-control"/>
             </div>
             <div aria-label="roomsContainer" style={{display: "flex", flexDirection: "column"}}>
