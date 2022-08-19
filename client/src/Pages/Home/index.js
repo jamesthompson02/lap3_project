@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import image from "./../../Images/homepage-pic-lap-3-project-removebg-preview.png";
 import './style.css';
-
+//
 
 const Home = () => {
 
@@ -21,7 +22,7 @@ const Home = () => {
 
       <p style={{marginTop: "1rem", fontSize: "1.5rem"}}>Thousands of questions to answer!</p>
 
-      <a href="/quiz" style={{marginLeft: "7rem"}}><button className='btnStyle'>Take a quiz!</button></a>
+      <Link to="/quiz"><button style={{marginLeft: "7rem"}} className='btnStyle'>Take a quiz!</button></Link>
 
 
       

@@ -5,11 +5,9 @@ import LobbyRoom from "../../Components/LobbyRoom";
 import QuizResults from "../../Components/QuizResults";
 import { default as QuizCategories } from "../QuizCategories";
 
-const QuizRoom = () => {
+const QuizRoom = ({socketEndpoint}) => {
   const { roomId } = useParams();
-
-  const serverEndpoint = "https://lap3-project.herokuapp.com";
-
+  const serverEndpoint = socketEndpoint || "https://lap3-project.herokuapp.com";
   const [userDivDisplay, setUserDisplay] = useState("flex");
   const [lobbyDisplay, setLobbyDisplay] = useState("none");
 
@@ -28,6 +26,8 @@ const QuizRoom = () => {
   const [data, setData] = useState({});
   const [answers, setAnswers] = useState([]);
   const [lobbyScores, setLobbyScores] = useState([]);
+  const [waiting, setWaiting] = useState(null);
+
 
   useEffect(() => {
     const newSocket = io(serverEndpoint);
@@ -41,12 +41,12 @@ const QuizRoom = () => {
     });
 
     newSocket.on("next-question", ({ nextQuestion }) => {
-      //Do something with the values
+      setWaiting(false)
       setData(nextQuestion);
-      const joinedAnswers = setAnswers([
+      const joinedAnswers = [
         nextQuestion.correct_answer,
         ...nextQuestion.incorrect_answers,
-      ]);
+      ];
       const shuffledAnswers = shuffle(joinedAnswers);
       setAnswers(shuffledAnswers);
     });
@@ -65,24 +65,10 @@ const QuizRoom = () => {
     newSocket.on("quiz-finished", ({ userScores }) => {
       setStarted(false);
       setFinished(true);
-      setLobbyScores(userScores);
+      let orderedScores = orderScores(userScores)
+      setLobbyScores(orderedScores);
       socket.close();
     });
-
-    newSocket.on("next-question", ({ nextQuestion }) => {
-      //Do something with the values
-      setData(nextQuestion);
-      // const joinedAnswers = setAnswers([
-      //   nextQuestion.correct_answer,
-      //   ...nextQuestion.incorrect_answers,
-      // ]);
-      const shuffledAnswers = shuffle([
-        nextQuestion.correct_answer,
-        ...nextQuestion.incorrect_answers,
-      ]);
-      setAnswers(shuffledAnswers);
-    });
-
     setSocket(newSocket);
   }, []);
 
@@ -109,9 +95,8 @@ const QuizRoom = () => {
   };
 
   function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
+    let currentIndex = array.length
+    let temporaryValue, randomIndex;
 
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
@@ -128,9 +113,13 @@ const QuizRoom = () => {
     return array;
   }
 
+  function orderScores(scores){
+    scores.sort((a, b) => (a.score < b.score ? 1 : -1))
+    return scores
+  }
   return (
     <div>
-      <div
+      <div role="usernameDiv"
         style={{
           display: userDivDisplay,
           minHeight: "calc(100vh - 100px)",
@@ -183,6 +172,8 @@ const QuizRoom = () => {
           username={usernameField}
           data={data}
           answers={answers}
+          waiting={waiting}
+          setWaiting={setWaiting}
         />
       ) : null}
       {finished ? <QuizResults results={lobbyScores} /> : null}

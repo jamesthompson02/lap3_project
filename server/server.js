@@ -75,7 +75,6 @@ io.on("connection", (socket) => {
     }
     if (currentRoom.users.filter((user) => user === username).length > 0) {
       socket.emit("name-taken");
-      console.log("IT DID THE THING");
       return;
     }
     currentRoom.users.push(username);
