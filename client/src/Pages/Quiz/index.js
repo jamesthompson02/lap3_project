@@ -14,7 +14,8 @@ const Quiz = () => {
     return;
   }
 
-  function goBackToStart() {
+  function goBackToStart(e) {
+    e.preventDefault();
     setStarterDisplay('flex');
     setSettingsDisplay('none');
   }
