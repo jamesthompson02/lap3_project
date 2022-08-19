@@ -2,9 +2,11 @@
 
 ## Project Goal
 
-Create a multiplayer quiz app using React, Express and SocketIO
+Create a multiplayer quiz app using React, Express and Socket
 
-- Screenshots/Images
+![quiz](https://user-images.githubusercontent.com/11813341/185593538-0086949a-de13-4c3a-962a-af1c7fe393f2.gif)
+
+
 
 ## Installation and Usage
 
@@ -12,11 +14,11 @@ Create a multiplayer quiz app using React, Express and SocketIO
 
 #### Client
 
-[Quiz-Nado](https://famous-gumption-3a3b4c.netlify.app/)
+[Triviaholic](https://famous-gumption-3a3b4c.netlify.app/)
 
 #### Server
 
-[Quiz-Nado](https://lap3-project.herokuapp.com/)
+[Triviaholic](https://lap3-project.herokuapp.com/)
 
 ### Local Client Setup
 
